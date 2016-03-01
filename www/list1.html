@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+
+    <script src="../temp/script1.js"></script>
+    
+    <script src="../temp/dirPagination.js"></script>
+
+    <script src="../basic.js"></script>
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+<h3 style="text-align:center">User Management</h3>
+<br>
+<br>
+
+<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon">
+           <span class="glyphicon glyphicon-search"></span>
+        </div>
+
+        <input type="text" class="form-control" placeholder="Search " ng-model="searchitem">
+
+      </div>      
+    </div>
+</form>
+
+ 
+
+<table class="table table-striped">
+  
+  <thead>
+  
+  <tr>
+  <th hidden></th>
+    <th><a href="">Edit</a></th>
+    <th><a href="">Delete</a></th>
+    <th><a href="" ng-click="sortType= 'firstname'"> First Name <span ng-show="sortType == 'firstname'" class="glyphicon glyphicon-chevron-down"></a> </th>
+    <th><a href="" ng-click="sortType= 'lastname'">Last Name <span ng-show="sortType == 'lastname'" class="glyphicon glyphicon-chevron-down"></a></th>
+    <th> <a href="" ng-click="sortType= 'age'">Age  <span ng-show="sortType == 'age'" class="glyphicon glyphicon-chevron-down"></a></th>
+    <th> <a href="" >Gender </a></th>
+   
+  </tr>
+  
+  </thead>
+  
+  <tbody>
+ <!--   <tr ng-repeat="user in users | filter:search | orderBy:'firstname'"> -->
+ 
+  <tr dir-paginate="user in users | orderBy:sortType:sortReverse | filter:searchitem|itemsPerPage:3">
+    
+    <td>
+      
+       <a href="#list3/{{user._id}}" ng-click="edit(user._id)"> <span class="glyphicon glyphicon-pencil"></span>Edit</a>
+      
+    </td>
+    
+    <td>
+      <button class="btn" ng-click="remove(user._id)">
+      <span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete
+      </button>
+    </td>
+
+    <td hidden>{{user.id}}</td>
+    <td>{{ user.firstname }}</td>
+    <td>{{ user.lastname }}</td>
+    
+    <td>{{ user.age}}</td>
+    <td>{{ user.gender }}</td>
+  
+  </tr>
+  
+  </tbody>
+
+</table>
+
+<dir-pagination-controls
+        max-size="3"
+        direction-links="true"
+        boundary-links="true" >
+</dir-pagination-controls>
+<br>
+<button class="btn btn-success" > <span class="glyphicon glyphicon-user"></span><a href="#list2">  Add new User </a></button>  <br><br>
+
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+
+    <script src="../temp/script1.js"></script>
+    
+    <script src="../temp/dirPagination.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<h3 > Create new User: </h3>
+
+
+
+
+<form class="form-horizontal"><!-- form starts-->
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">First Name:</label>
+  <div class="col-sm-10">
+    <input type="text" id="fname"  ng-model="user.firstname" value="{{user.firstname}}">
+  </div>
+</div> 
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Last Name:</label>
+  <div class="col-sm-10">
+    <input type="text"id="lname"  ng-model="user.lastname"value="{{user.lastname}}">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Password:</label>
+  <div class="col-sm-10">
+    <input type="password"id="pass1" ng-disabled="!edit1" ng-model="user.pass1"value="{{user.pass1}}">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">RepeatPassword:</label>
+  <div class="col-sm-10">
+    <input type="password"id="repass" ng-disabled="!edit1" ng-model="user.pass2"value="{{user.pass2}}">
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Age:</label>
+  <div class="col-sm-10">
+    <input type="text" id="age" ng-model="user.age"value="{{user.age}}">
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Gender:</label>
+  <div class="col-sm-10">
+    <input type="text" id="gender" ng-model="user.gender"value="{{user.gender}}">
+  </div>
+</div>
+
+</form> <!-- form ends-->
+
+<hr>
+
+
+ <button class="btn btn-success" ng-click="addnew()"> <span class="glyphicon glyphicon-user"></span>Add new User</button>  <br><br>
+      
+ <button class="btn btn-success" ng-click="update()"> <span class="glyphicon glyphicon-save"></span>Save</button>
+
+
+</div>
+</body>
+
+</html>

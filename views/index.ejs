@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>
+
+
+var app=angular.module('RoutingApp', ['ngRoute','angularUtils.directives.dirPagination']);
+
+app.config( ['$routeProvider', function($routeProvider) {
+
+$routeProvider
+
+.when('/list1', {
+
+templateUrl: 'list1.html',
+controller: "TableUserController"
+})
+
+.when('/list2', {
+
+templateUrl: 'list2.html',
+controller: "CreateUserController"
+})
+
+.when('/list3/:param', {
+
+templateUrl: 'list3.html',
+controller: "EditUserController"
+})
+
+.otherwise({
+
+redirectTo: '/'
+
+});
+
+}]);
+
+
+
+
+app.service('userService',function($http) {
+
+//create unique user id
+//var uid = 0;
+
+this.save = function (user) {
+if (user.id == null) {
+
+user.id=3;
+$http.post('/userCreate', user).success(function (data) {
+console.log(data);
+});
+} else{
+$http.put('/userUpdate/'+user.id, user).success(function (data) {
+console.log(data);
+
+});
+}
+}
+
+
+
+
+this.get=function(id) {
+
+return $http.get('/users/'+id).success(function (data) {
+console.log(data);
+});
+
+}
+
+
+this.remove =function(id)
+{
+
+
+$http.delete('/userDelete/'+id).success(function (data) {
+
+});
+
+}
+
+this.list = function ()
+{
+return $http.get('/users').success(function (data) {
+});
+}
+
+});
+
+
+
+app.controller('TableUserController', function ($scope, $http, userService) {
+
+userService.list().success(function (data) {
+
+$scope.users = data;
+console.log(data);
+
+})
+.error(function (data) {
+console.log('Error' + data);
+
+});
+
+$scope.remove = function (id)
+{
+userService.remove(id);
+
+console.log(id);
+//$location.path("/list1");
+}
+
+$scope.edit = function (id) {
+
+$scope.current = angular.copy(userService.get(id));
+}
+
+});
+
+
+
+
+
+
+app.controller('CreateUserController', function ($scope,$location, userService) {
+
+$scope.addnew=function(user)
+{
+
+userService.save($scope.current);
+$scope.current={};
+//$location.path("/list1");
+
+}
+
+
+
+
+});
+
+app.controller("EditUserController" ,function($scope,$routeParams,$location,userService){
+
+
+
+$scope.param=$routeParams.param;
+
+userService.get($scope.param)
+
+.success(function(data) {
+
+$scope.current=data;
+})
+.error(function(data){
+
+console.log("Error" +data);
+
+});
+
+$scope.save=function(){
+
+userService.save($scope.current);
+$scope.current={};
+$location.path("/list1");
+
+}
+
+
+});
+
+
+
